@@ -1,0 +1,23 @@
+Step1: 
+compile the library source code into position-independent code (works no matter where in memory it is placed). 
+gcc -c -Wall -Werror -fpic foo.c
+
+Step2:
+we need to turn this object file into a shared library. We’ll call it libfoo.so:
+gcc -shared -o libfoo.so foo.o
+
+Step3:
+The -lfoo option looks for library file libfoo.so in the location specified by -L
+gcc -L/home/ccc/Desktop/Marathon/lib -Wall -o dsv main.c -lfoo
+
+Step4:
+Change environment variable LD_LIBRARY_PATH for library path and export it.
+1. LD_LIBRARY_PATH=/home/ccc/Desktop/Marathon/lib:$LD_LIBRARY_PATH
+2. export LD_LIBRARY_PATH=/home/username/foo:$LD_LIBRARY_PATH
+
+Step5:
+./dsv
+
+Output:
+This is a shared library test...
+Hello, I'm a shared library
